@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../font-awesome-4.7.0/css/font-awesome.css" />
+		<link rel="stylesheet" href="../css/regist.css" />
+		<script src="../framework/angular.js"></script>
+	    <script src="../js/regist.js"></script>
+	</head>
+	<body ng-app="myApp"  ng-controller="SignUpController">
+		<!--<form name="signUpForm" ng-submit="submitForm()">
+			<div class="form-group">
+				<label>用户名：</label>
+				<input class="form-control" 
+					   ng-model="username"
+					   name="username"
+					   ng-disabled="signUpForm.username2.$valid"
+					   minlength="4"
+					   required="true"
+					   ng-class="{'error':signUpForm.username.$invalid && signUpForm.username.$touched}"/>
+			<div ng-if="signUpForm.username.$invalid && signUpForm.username.$touched">您的输入有误请检查</div>
+			<input name="username2" 
+				   ng-model="username2"
+				   required
+				   ng-disabled="signUpForm.username.$valid"
+				   class="form-control"
+				    />
+			</div>
+			<button type="submit" class="btn btn-primary" ng-disabled="signUpForm.$invalid">提交</button>
+		</form>-->
+		<div id="container">
+			<div class="row">
+				<!--<div class="col-sm-7 left">
+				    
+			    </div>-->
+			    <div class="col-sm-12 right">
+			    	<div class="wrapper">
+			    		<h2>欢迎注册API网关系统</h2>
+			    		<h5>已有账号，请<a href="login.html">登录</a></h5>
+			    	<div class="inner">			    		
+					<form name="signUpForm" ng-submit="submitForm()">
+					<div class="form-group row" ng-class="{'has-success':signUpForm.username.$valid}">
+						<label class="col-sm-3 control-label text-right">用户名：</label>
+						<!--<pre>合法：{{signUpForm.username.$valid}}</pre>
+						<pre>{{signUpForm.username}}</pre>-->
+						<div class="col-sm-5">
+						<input ng-model="userdata.username"
+							name="username"  
+							type="text" 
+							class="form-control" 
+							ng-minlength="4"
+							ng-maxlength="32"
+							required
+							>
+						</div>
+						<div class="col-sm-4">
+							<p class="fa fa-check input_result success" ng-if="signUpForm.username.$valid"></p>
+							<p class="error" ng-if="signUpForm.username.$error.required && signUpForm.username.$touched">
+							用户名不可为空
+						    </p>
+							<p class="error" ng-if="(signUpForm.username.$error.minlength || signUpForm.username.$error.maxlength)&&signUpForm.username.$touched">
+								用户名长度应在4-32位之间
+							</p>
+						</div>
+					</div>
+					
+					
+					<div class="form-group row" ng-class="{'has-error':signUpForm.email.$invalid && signUpForm.email.$dirty}">
+						<label class="col-sm-3 control-label text-right">邮箱：</label>
+						<div class="col-sm-5">
+						<input  type="email" class="form-control" name="email" ng-model="userdata.email" ng-required="true"/>
+						</div>
+						<div class="col-sm-4">
+						<p class="fa fa-check input_result success" ng-if="signUpForm.email.$valid"></p>
+						<p class="error" ng-if="signUpForm.email.$error.required && signUpForm.email.$touched">邮箱不能为空</p>
+						<p class="error" ng-if="signUpForm.email.$error.email">请填写正确的邮箱地址</p>
+					    </div>
+					</div>
+					
+					
+					<div class="form-group row" ng-class="{'has-success':signUpForm.password.$valid}">
+						<label class="col-sm-3 control-label text-right">密码：</label>
+						<!--<pre>合法：{{signUpForm.password.$valid}}</pre>
+						<pre>{{signUpForm.password}}</pre>-->
+						<div class="col-sm-5">
+						<input ng-model="userdata.password"
+							name="password" 
+							type="password" 
+							class="form-control"
+							ng-minlength="6"
+							ng-maxlength="255"
+							required
+							>
+						</div>
+						<div class="col-sm-4">
+						<p class="fa fa-check input_result success" ng-if="signUpForm.password.$valid"></p>
+					    <p class="error" ng-if="signUpForm.password.$error.required && signUpForm.password.$touched">用户密码不能为空</p>
+					    <p class="error" ng-if="(signUpForm.password.$error.minlength || signUpForm.password.$error.minlength)&&signUpForm.password.$touched">
+							密码长度应在6-255位之间
+						</p>
+						</div>
+					</div>
+					
+					<div class="form-group row" ng-class="{'has-success':signUpForm.password2.$valid}">
+						<label class="col-sm-3 control-label text-right">确认密码：</label>
+						<!--<pre>合法：{{signUpForm.password2.$valid}}</pre>
+						<pre>{{signUpForm.password2}}</pre>-->
+						<div class="col-sm-5">
+						<input ng-model="userdata.password2" 
+						name="password2" 
+						type="password" 
+						class="form-control" 
+						compare="userdata.password"
+						required="required" 
+						>	
+						</div>
+						<div class="col-sm-4">
+						<p class="fa fa-check input_result success" ng-if="signUpForm.password2.$valid"></p>
+					    <p class="error" ng-if="signUpForm.password2.$error.compare && signUpForm.password2.$touched">两次密码输入不一致</p>
+					    </div>
+					</div>
+					<div class="col-sm-3 item row">
+						<input type="checkbox" name="agree" required="required" onclick="if(this.checked) 
+							document.getElementById('regist').disabled=false; else document.getElementById('regist').disabled=false;"/><a href="#">《API网关服务条款》</a>
+					</div>
+					<div class="form-group row agree">
+						<button class="btn btn-primary" type="submit" disabled="disabled" id="regist">同意条款并注册</button>
+					</div>					
+				    </form>
+			   </div>
+			   </div>
+			    </div>
+			</div>	
+		</div>
+	
+	</body>
+</html>
